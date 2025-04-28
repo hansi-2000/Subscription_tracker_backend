@@ -1,0 +1,30 @@
+import mongoose from "mongoose";
+
+const userSchema = new mongoose.schema({
+    name: {
+        type: String, 
+        required: [true, 'User name is required'], 
+        trim: [true],
+        minLength: 2,
+        maxLength: 50,
+    },
+    email: {
+        type: String, 
+        required: [true, 'User email is required'], 
+        trim: [true],
+        unique: [true],
+        lowercase: [true],
+        match: [/\S+@\S+\.\S+/, 'Please enter a valid email'],       
+    },
+    password: {
+        type: String, 
+        required: [true, 'User password is required'], 
+        minLength: 6,
+              
+    }
+}, {Timestamps: true});
+
+// Model off (model (User) typically starts from capital letter)
+const User = mongoose.model('User', userSchema);
+
+export default User;
